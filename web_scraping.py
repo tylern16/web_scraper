@@ -57,17 +57,47 @@ doc = BeautifulSoup(result, "html.parser")
 
 # trs = doc.find_all(class_="table-body-row")
 
-trs = doc.find_all("tr", class_='bg-br-2-100')
+# trs = doc.find_all("tr", class_='bg-br-2-100')
 
-world_cup_data = {}
+
+
+
+# world_cup_data = {}
+
+# for tr in trs:
+#     team_name = tr.find(class_="absolute right-1 max-w-full truncate left-8 lg:caps-s5-fx hidden md:block").text
+
+#     points = tr.find_all("td")[-2].text
+    
+#     world_cup_data[team_name] = points
+
+# print(world_cup_data)
+
+class Team:
+    def __init__(self, name, position, wins, draws, losses, points):
+        self.name = name
+        self.position = position
+        self.wins = wins
+        self.draws = draws
+        self.losses = losses
+        self.points = points
+
+world_cup_data = []
+
+trs = trs = doc.find_all("tr", class_='bg-br-2-100')
 
 for tr in trs:
     team_name = tr.find(class_="absolute right-1 max-w-full truncate left-8 lg:caps-s5-fx hidden md:block").text
-
+    position = tr.find_all("td")[1].text
+    wins = tr.find_all("td")[-8].text
+    draws = tr.find_all("td")[-7].text
+    losses = tr.find_all("td")[-6].text
     points = tr.find_all("td")[-2].text
-    
-    world_cup_data[team_name] = points
 
-print(world_cup_data)
+    team = Team(team_name, position, wins, draws, losses, points)
+
+    world_cup_data.append(team)
+
+print(world_cup_data[7].name)
 
 
