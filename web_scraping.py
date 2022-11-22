@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 
 import requests
+import json
 
 # with open("index.html", "r") as f:
 #     doc = BeautifulSoup(f, "html.parser")
@@ -73,33 +74,40 @@ doc = BeautifulSoup(result, "html.parser")
 
 # print(world_cup_data)
 
-class Team:
-    def __init__(self, name, position, wins, draws, losses, points):
-        self.name = name
-        self.position = position
-        self.wins = wins
-        self.draws = draws
-        self.losses = losses
-        self.points = points
+# class Team:
+#     def __init__(self, name, position, wins, draws, losses, points):
+#         self.name = name
+#         self.position = position
+#         self.wins = wins
+#         self.draws = draws
+#         self.losses = losses
+#         self.points = points
 
 world_cup_data = []
 
 trs = trs = doc.find_all("tr", class_='bg-br-2-100')
 
 for tr in trs:
-    team_name = tr.find(class_="absolute right-1 max-w-full truncate left-8 lg:caps-s5-fx hidden md:block").text
-    position = tr.find_all("td")[1].text
-    wins = tr.find_all("td")[-8].text
-    draws = tr.find_all("td")[-7].text
-    losses = tr.find_all("td")[-6].text
-    points = tr.find_all("td")[-2].text
+    team_dict = {
+        'team_name': f'{tr.find(class_="absolute right-1 max-w-full truncate left-8 lg:caps-s5-fx hidden md:block").text}',
+        'position': f'{tr.find_all("td")[1].text}',
+        'wins': f'{tr.find_all("td")[-8].text}',
+        'draws': f'{tr.find_all("td")[-7].text}',
+        'losses': f'{tr.find_all("td")[-6].text}',
+        'points': f'{tr.find_all("td")[-2].text}'
+    }
+    
 
-    team = Team(team_name, position, wins, draws, losses, points)
+    # team = Team(team_name, position, wins, draws, losses, points)
 
-    world_cup_data.append(team)
+    world_cup_data.append(team_dict)
 
+# for i in range(0, len(world_cup_data)):
+#     print(world_cup_data[i].name, world_cup_data[i].points)
 
-for i in range(0, len(world_cup_data)):
-    print(world_cup_data[i].name, world_cup_data[i].points)
+json_string = json.dumps(world_cup_data)
+# print(json_string)
 
+with open('data.json', 'w') as f:
+    f.write(json_string)
 
