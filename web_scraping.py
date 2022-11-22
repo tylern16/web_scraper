@@ -108,6 +108,6 @@ for tr in trs:
 json_string = json.dumps(world_cup_data)
 # print(json_string)
 
-with open('data.json', 'w') as f:
+with open('world-cup-react/src/data.json', 'w') as f:
     f.write(json_string)
 

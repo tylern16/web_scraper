@@ -1,0 +1,20 @@
+
+body {
+    text-align: center;
+}
+
+.container {
+    width: 50%;
+    margin: 0 auto;
+    text-align: left;
+    display: grid;
+}
+
+.container > div:nth-child(5n) {
+    padding-bottom: 3em;
+}
+
+.grid-item {
+    display: grid;
+    grid-template-columns: 15% 25% 15% 15% 15% 15%;
+}
