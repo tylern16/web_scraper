@@ -98,6 +98,8 @@ for tr in trs:
 
     world_cup_data.append(team)
 
-print(world_cup_data[7].name)
+
+for i in range(0, len(world_cup_data)):
+    print(world_cup_data[i].name, world_cup_data[i].points)
 
 
